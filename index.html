@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>humbled.exe — honest user feedback</title>
+<meta name="description" content="Submit your startup, app, or idea. Get brutally honest first-impression feedback from a real user — public, unfiltered, free."/>
+<meta property="og:title" content="humbled.exe — honest user feedback"/>
+<meta property="og:description" content="A real person clicks through your product and tells you exactly what felt broken, confusing, or unnecessary."/>
+<meta property="og:type" content="website"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#f7f4ef;
+  --surface:#ffffff;
+  --ink:#18160f;
+  --ink2:#6b6760;
+  --ink3:#a8a49e;
+  --rule:#e2ddd6;
+  --rule2:#ccc8c0;
+  --red:#c0351a;
+  --red-bg:#fdf0ed;
+  --serif:'Instrument Serif',Georgia,serif;
+  --mono:'DM Mono',monospace;
+  --sans:'Inter',system-ui,sans-serif;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ── layout ── */
+.page{max-width:740px;margin:0 auto;padding:0 24px}
+
+/* ── nav ── */
+nav{padding:22px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule2)}
+.logo{font-family:var(--serif);font-size:20px;color:var(--ink);letter-spacing:-0.01em}
+.logo em{color:var(--red);font-style:italic}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-count{font-family:var(--mono);font-size:11px;color:var(--ink3)}
+.nav-btn{font-family:var(--mono);font-size:11px;color:var(--ink);border:1px solid var(--rule2);padding:7px 16px;background:var(--surface);transition:border-color 0.15s,background 0.15s;cursor:pointer;display:inline-block}
+.nav-btn:hover{border-color:var(--ink)}
+
+/* ── hero ── */
+.hero{padding:72px 0 60px;opacity:0;animation:fadeUp 0.6s ease forwards}
+.hero-label{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:20px}
+h1{font-family:var(--serif);font-size:clamp(46px,8vw,78px);line-height:0.96;letter-spacing:-0.02em;color:var(--ink);margin-bottom:26px;font-weight:400}
+h1 em{color:var(--red);font-style:italic}
+.hero-sub{font-size:16px;color:var(--ink2);line-height:1.65;max-width:480px;margin-bottom:40px;font-weight:300}
+.cta-group{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.btn-main{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:0.05em;padding:13px 28px;background:var(--ink);color:var(--bg);border:1px solid var(--ink);transition:background 0.15s;cursor:pointer;display:inline-block}
+.btn-main:hover{background:#2d2a20}
+.hero-note{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+
+/* ── sections ── */
+.sec{padding:52px 0;border-top:1px solid var(--rule);opacity:0;animation:fadeUp 0.6s ease forwards}
+.sec:nth-child(2){animation-delay:0.1s}
+.sec:nth-child(3){animation-delay:0.15s}
+.sec:nth-child(4){animation-delay:0.2s}
+.sec:nth-child(5){animation-delay:0.25s}
+.sec:nth-child(6){animation-delay:0.3s}
+
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+.sec-label{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap}
+.sec-line{flex:1;height:1px;background:var(--rule)}
+
+/* ── what grid ── */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.gcell{background:var(--bg);padding:22px 20px;transition:background 0.15s}
+.gcell:hover{background:var(--surface)}
+.gcell-n{font-family:var(--mono);font-size:10px;color:var(--red);margin-bottom:10px}
+.gcell strong{font-family:var(--serif);font-size:17px;font-weight:400;display:block;margin-bottom:6px;color:var(--ink)}
+.gcell p{font-size:13px;color:var(--ink2);line-height:1.55}
+
+/* ── not list ── */
+.not-list{border-top:1px solid var(--rule)}
+.not-row{display:flex;align-items:baseline;gap:14px;padding:13px 0;border-bottom:1px solid var(--rule);transition:padding-left 0.15s}
+.not-row:hover{padding-left:6px}
+.not-dash{font-family:var(--mono);font-size:11px;color:var(--rule2)}
+.not-row span{font-size:14px;color:var(--ink2)}
+
+/* ── steps ── */
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:28px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--rule)}
+.step-n{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:3px}
+.step strong{font-family:var(--serif);font-size:17px;font-weight:400;display:block;margin-bottom:5px}
+.step p{font-size:13px;color:var(--ink2)}
+
+/* ── wall ── */
+.wall-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.wall-stats{display:flex;gap:24px}
+.wstat-n{font-family:var(--mono);font-size:20px;font-weight:500;color:var(--ink);display:block;line-height:1}
+.wstat-l{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-top:3px;display:block}
+
+.fcard{background:var(--surface);border:1px solid var(--rule);margin-bottom:12px;transition:border-color 0.2s,transform 0.2s}
+.fcard:hover{border-color:var(--rule2);transform:translateY(-1px)}
+.fcard-top{padding:14px 18px;border-bottom:1px solid var(--rule);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.fcard-product{font-family:var(--serif);font-size:16px;color:var(--ink);font-weight:400}
+.fcard-meta{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.fcard-id{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.fcard-badge{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;padding:3px 8px;border:1px solid var(--red);color:var(--red);background:var(--red-bg)}
+.fcard-body{padding:18px 18px 14px;font-size:14px;color:var(--ink2);line-height:1.72}
+.fcard-body strong{color:var(--ink);font-weight:500}
+.fcard-foot{padding:10px 18px 12px;display:flex;align-items:center;gap:8px}
+
+/* ── reactions ── */
+.react-btn{font-family:var(--mono);font-size:11px;color:var(--ink2);border:1px solid var(--rule);background:var(--bg);padding:5px 11px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.15s;user-select:none;line-height:1}
+.react-btn:hover{border-color:var(--rule2);background:var(--surface)}
+.react-btn.active-fire{background:#b84a00;color:#fff;border-color:#b84a00}
+.react-btn.active-same{background:#1a5c2a;color:#fff;border-color:#1a5c2a}
+.react-btn.active-hmm{background:#5a4a00;color:#fff;border-color:#5a4a00}
+.react-icon{font-size:13px}
+.react-count{font-size:10px;min-width:14px;text-align:left}
+.fcard-time{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--ink3)}
+
+/* ── lookup ── */
+.lookup-box{border:1px solid var(--rule);padding:22px 24px;background:var(--surface);margin-top:20px}
+.lookup-label{font-family:var(--mono);font-size:10px;color:var(--ink3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px}
+.lookup-row{display:flex;gap:8px;flex-wrap:wrap}
+.lookup-input{font-family:var(--mono);font-size:12px;border:1px solid var(--rule);background:var(--bg);color:var(--ink);padding:10px 14px;flex:1;min-width:160px;outline:none;transition:border-color 0.15s}
+.lookup-input:focus{border-color:var(--ink)}
+.lookup-input::placeholder{color:var(--ink3)}
+.lookup-btn{font-family:var(--mono);font-size:11px;padding:10px 20px;border:1px solid var(--ink);background:var(--ink);color:var(--bg);cursor:pointer;transition:background 0.15s;white-space:nowrap}
+.lookup-btn:hover{background:#2d2a20}
+.lookup-res{margin-top:10px;font-family:var(--mono);font-size:11px;display:none;padding:9px 13px;line-height:1.5}
+.lookup-res.ok{background:#edf7ee;color:#1a5c2a;border:1px solid #b8debb}
+.lookup-res.no{background:var(--red-bg);color:var(--red);border:1px solid #f0c4ba}
+
+/* ── pending card ── */
+.fcard-pending{background:var(--bg);border:1px dashed var(--rule2);margin-bottom:12px}
+.fcard-pending .fcard-top{border-bottom:1px dashed var(--rule2)}
+.pending-badge{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;padding:3px 8px;border:1px solid var(--ink3);color:var(--ink3);background:transparent}
+.fcard-pending .fcard-body{color:var(--ink3);font-style:italic}
+
+/* ── final cta ── */
+.final-sec{padding:72px 0;text-align:center;border-top:1px solid var(--rule)}
+.final-sec h2{font-family:var(--serif);font-size:clamp(32px,5vw,46px);font-weight:400;letter-spacing:-0.02em;margin-bottom:10px}
+.final-sec p{color:var(--ink2);margin-bottom:30px;font-weight:300;font-size:15px}
+
+/* ── footer ── */
+footer{padding:22px 0;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.ft{font-family:var(--mono);font-size:10px;color:var(--ink3)}
+.ft a{color:var(--ink3);border-bottom:1px solid var(--rule);padding-bottom:1px;transition:color 0.15s}
+.ft a:hover{color:var(--ink2)}
+
+/* ── animation ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── responsive ── */
+@media(max-width:500px){
+  .grid2{grid-template-columns:1fr}
+  .fcard-top{flex-direction:column;align-items:flex-start}
+  .wall-stats{gap:16px}
+  .nav-count{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">humbled<em>.exe</em></div>
+    <div class="nav-right">
+      <span class="nav-count">23 reviewed</span>
+      <a href="https://forms.gle/ivKyPFE6XcUiagsE6" target="_blank" rel="noopener" class="nav-btn">submit →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">// real user · no filters · no experts</div>
+    <h1>Your product,<br><em>honestly</em> seen.</h1>
+    <p class="hero-sub">Submit your startup, app, or idea. A real person clicks through it and tells you exactly what felt broken, confusing, or unnecessary — publicly, for everyone to see.</p>
+    <div class="cta-group">
+      <a href="https://forms.gle/ivKyPFE6XcUiagsE6" target="_blank" rel="noopener" class="btn-main">Submit your product</a>
+      <span class="hero-note">free · no account · 2 min form</span>
+    </div>
+  </section>
+
+  <!-- WHAT YOU GET -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-label">what you get</span><div class="sec-line"></div></div>
+    <div class="grid2">
+      <div class="gcell"><div class="gcell-n">01</div><strong>First impression</strong><p>What lands in the first 10 seconds. What sticks. What doesn't register at all.</p></div>
+      <div class="gcell"><div class="gcell-n">02</div><strong>Confusion points</strong><p>Where I had to re-read. Where things were unclear. Where I almost left.</p></div>
+      <div class="gcell"><div class="gcell-n">03</div><strong>Trust signals</strong><p>What made me want to click. What gave me pause. What felt off or fake.</p></div>
+      <div class="gcell"><div class="gcell-n">04</div><strong>Gut reaction</strong><p>Would I use this? Would I tell someone? Would I come back?</p></div>
+    </div>
+  </section>
+
+  <!-- NOT THIS -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-label">not this</span><div class="sec-line"></div></div>
+    <div class="not-list">
+      <div class="not-row"><span class="not-dash">—</span><span>Expert advice or strategic consulting</span></div>
+      <div class="not-row"><span class="not-dash">—</span><span>Growth hacking tips or SEO suggestions</span></div>
+      <div class="not-row"><span class="not-dash">—</span><span>Polished, diplomatic, softened feedback</span></div>
+      <div class="not-row"><span class="not-dash">—</span><span>AI-generated generic observations</span></div>
+      <div class="not-row"><span class="not-dash">—</span><span>A therapy session for your startup ego</span></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-label">how it works</span><div class="sec-line"></div></div>
+    <div class="steps">
+      <div class="step"><span class="step-n">01</span><div><strong>Fill the form</strong><p>Your link, one sentence on what it does, and what you want me to look at. Under 2 minutes.</p></div></div>
+      <div class="step"><span class="step-n">02</span><div><strong>I actually use it</strong><p>Not a skim. I click around, read the copy, go through onboarding, and note what I feel in real time.</p></div></div>
+      <div class="step"><span class="step-n">03</span><div><strong>Feedback goes on the wall</strong><p>Your review appears here publicly within 48hrs. Search for your product name — no account needed.</p></div></div>
+    </div>
+  </section>
+
+  <!-- FEEDBACK WALL -->
+  <section class="sec">
+    <div class="sec-head"><span class="sec-label">feedback wall</span><div class="sec-line"></div></div>
+
+    <div class="wall-bar">
+      <div class="wall-stats">
+        <div><span class="wstat-n">23</span><span class="wstat-l">reviewed</span></div>
+        <div><span class="wstat-n">141</span><span class="wstat-l">reactions</span></div>
+        <div><span class="wstat-n">48h</span><span class="wstat-l">avg turnaround</span></div>
+      </div>
+    </div>
+
+    <!-- CARD 1 -->
+    <div class="fcard" id="c1">
+      <div class="fcard-top">
+        <span class="fcard-product">TaskFlow Pro — project management</span>
+        <div class="fcard-meta"><span class="fcard-id">#HMB-0023</span><span class="fcard-badge">reviewed</span></div>
+      </div>
+      <div class="fcard-body">"The homepage says 'built for modern teams' — that means nothing. <strong>I had no idea what this actually does until I scrolled past the fold.</strong> The onboarding asked me to invite a teammate before I'd even made my first task. That's backwards. Feature names like 'Spaces' and 'Views' don't explain themselves at all. <strong>The pricing page is clearer than the homepage, weirdly. Fix the homepage first.</strong>"</div>
+      <div class="fcard-foot">
+        <button class="react-btn" onclick="react('c1','fire',this)" title="This hit hard">🔥 <span class="react-count" id="c1-fire">18</span></button>
+        <button class="react-btn" onclick="react('c1','same',this)" title="Same experience I had">👆 <span class="react-count" id="c1-same">9</span></button>
+        <button class="react-btn" onclick="react('c1','hmm',this)" title="Interesting take">🤔 <span class="react-count" id="c1-hmm">3</span></button>
+        <span class="fcard-time">2 days ago</span>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="fcard" id="c2">
+      <div class="fcard-top">
+        <span class="fcard-product">Breezy — newsletter tool for creators</span>
+        <div class="fcard-meta"><span class="fcard-id">#HMB-0021</span><span class="fcard-badge">reviewed</span></div>
+      </div>
+      <div class="fcard-body">"First impression: I liked it. Headline was specific, got it immediately. But the subheadline just reworded the headline — added nothing. Social proof logos are unrecognisable so they feel like filler. <strong>The CTA says 'Start for free' but clicking it asks for a card. That mismatch made me feel tricked</strong> — even if the free plan exists. Move your FAQ up, I had questions by section two."</div>
+      <div class="fcard-foot">
+        <button class="react-btn" onclick="react('c2','fire',this)" title="This hit hard">🔥 <span class="react-count" id="c2-fire">24</span></button>
+        <button class="react-btn" onclick="react('c2','same',this)" title="Same experience I had">👆 <span class="react-count" id="c2-same">14</span></button>
+        <button class="react-btn" onclick="react('c2','hmm',this)" title="Interesting take">🤔 <span class="react-count" id="c2-hmm">2</span></button>
+        <span class="fcard-time">4 days ago</span>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="fcard" id="c3">
+      <div class="fcard-top">
+        <span class="fcard-product">Habitual — daily habit tracker</span>
+        <div class="fcard-meta"><span class="fcard-id">#HMB-0019</span><span class="fcard-badge">reviewed</span></div>
+      </div>
+      <div class="fcard-body">"App looks genuinely nice — I mean that. <strong>But I spent 3 minutes setting up habits and couldn't figure out how to log one.</strong> The + button adds a habit, not a log. I tapped it five times. No indication the habit name itself is tappable. Streak counter reset after I figured out the logging — discouraging. Also no way to reorder habits, and that frustrated me more than I expected."</div>
+      <div class="fcard-foot">
+        <button class="react-btn" onclick="react('c3','fire',this)" title="This hit hard">🔥 <span class="react-count" id="c3-fire">31</span></button>
+        <button class="react-btn" onclick="react('c3','same',this)" title="Same experience I had">👆 <span class="react-count" id="c3-same">19</span></button>
+        <button class="react-btn" onclick="react('c3','hmm',this)" title="Interesting take">🤔 <span class="react-count" id="c3-hmm">5</span></button>
+        <span class="fcard-time">6 days ago</span>
+      </div>
+    </div>
+
+    <!-- PENDING EXAMPLE -->
+    <div class="fcard-pending" id="c4">
+      <div class="fcard-top">
+        <span class="fcard-product" style="color:var(--ink3)">DropUI — component library for React</span>
+        <div class="fcard-meta"><span class="fcard-id">#HMB-0024</span><span class="pending-badge">in queue</span></div>
+      </div>
+      <div class="fcard-body" style="color:var(--ink3)">Submitted 1 day ago. Feedback coming within 48hrs.</div>
+    </div>
+
+    <!-- LOOKUP -->
+    <div class="lookup-box">
+      <div class="lookup-label">find your feedback</div>
+      <div class="lookup-row">
+        <input class="lookup-input" id="idInput" type="text" placeholder="type your product name or #HMB-ID" />
+        <button class="lookup-btn" onclick="lookup()">Search</button>
+      </div>
+      <div class="lookup-res" id="lookupRes"></div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-sec">
+    <h2>Ready to be humbled?</h2>
+    <p>Free. Public. Might sting a little.</p>
+    <a href="https://forms.gle/ivKyPFE6XcUiagsE6" target="_blank" rel="noopener" class="btn-main">Submit your product →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="ft">humbled.exe · honest feedback · all reviews public</span>
+    <span class="ft">by <a href="https://dropoutdudes.com" target="_blank" rel="noopener">dropoutdudes.com</a></span>
+  </footer>
+
+</div>
+
+<script>
+/* ── reactions (localStorage for persistence) ── */
+function getVotes(){try{return JSON.parse(localStorage.getItem('hmb_votes')||'{}')}catch(e){return{}}}
+function saveVotes(v){try{localStorage.setItem('hmb_votes',JSON.stringify(v))}catch(e){}}
+
+function react(card,type,btn){
+  const votes=getVotes();
+  const prev=votes[card];
+  const types=['fire','same','hmm'];
+
+  if(prev===type){
+    const el=document.getElementById(card+'-'+type);
+    el.textContent=Math.max(0,parseInt(el.textContent)-1);
+    btn.className='react-btn';
+    delete votes[card];
+  } else {
+    if(prev){
+      const prevEl=document.getElementById(card+'-'+prev);
+      if(prevEl) prevEl.textContent=Math.max(0,parseInt(prevEl.textContent)-1);
+      const prevBtn=document.querySelector('#'+card+' .react-btn.active-'+prev);
+      if(prevBtn) prevBtn.className='react-btn';
+    }
+    const el=document.getElementById(card+'-'+type);
+    el.textContent=parseInt(el.textContent)+1;
+    btn.className='react-btn active-'+type;
+    votes[card]=type;
+  }
+  saveVotes(votes);
+}
+
+/* restore votes on load */
+(function(){
+  const votes=getVotes();
+  Object.keys(votes).forEach(card=>{
+    const type=votes[card];
+    const btn=document.querySelector('#'+card+' .react-btn[onclick*="\''+type+'\'"]');
+    if(btn) btn.className='react-btn active-'+type;
+  });
+})();
+
+/* ── lookup ── */
+const wallData=[
+  {id:'#HMB-0023',name:'taskflow'},
+  {id:'#HMB-0021',name:'breezy'},
+  {id:'#HMB-0019',name:'habitual'},
+  {id:'#HMB-0024',name:'dropui',pending:true},
+];
+
+function lookup(){
+  const raw=document.getElementById('idInput').value.trim().toLowerCase();
+  const res=document.getElementById('lookupRes');
+  if(!raw){res.textContent='Enter a product name or ID.';res.className='lookup-res no';res.style.display='block';return;}
+  const match=wallData.find(d=>d.id.toLowerCase()===raw||d.name.includes(raw));
+  res.style.display='block';
+  if(match){
+    if(match.pending){
+      res.textContent=match.id+' — your submission is in the queue. Feedback posts within 48hrs.';
+      res.className='lookup-res no';
+    } else {
+      res.textContent=match.id+' — found on the wall above. Scroll up to read your feedback.';
+      res.className='lookup-res ok';
+    }
+  } else {
+    res.textContent='Not found yet. Feedback usually posts within 48hrs of submission.';
+    res.className='lookup-res no';
+  }
+}
+document.getElementById('idInput').addEventListener('keydown',e=>{if(e.key==='Enter')lookup();});
+</script>
+</body>
+</html>
